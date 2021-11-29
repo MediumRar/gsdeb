@@ -1,4 +1,4 @@
-# sucklessdebian
+# gsdeb
 
 # THIS GUIDE IS NEITHER COMPLETE NOR PERFECT FOR SURE !!!
 
@@ -14,8 +14,8 @@ Enjoy stable Debian with a very lightweight "DE".
 ### Install suckless software
 Do the following as the user you plan to use for the "DE"
 ```
-git clone https://github.com/erjeytetatetagey/sucklessdebian ~/.
-cd ~/sucklessdebian
+git clone http://git.geilerschas.at/gsdeb.git ~/.
+cd ~/gsdeb
 ```
 You can now make some configurations in the install script itself or via the suckless configuration files.
 ```
@@ -23,7 +23,7 @@ vi install.sh
 ```
 As soon as you are done, install.
 ```
-cd ~/sucklessdebian
+cd ~/gsdeb
 ./install.sh
 ```
 
