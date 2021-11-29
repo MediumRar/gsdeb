@@ -1,0 +1,48 @@
+#!/usr/bin/bash
+
+# Default values:
+c=""
+v=""
+
+# It's the : after d that signifies that it takes an option argument.
+
+while getopts c:v: opt; do
+    case $opt in
+        c) c="${OPTARG}" ;;
+        v) v="${OPTARG}" ;;
+        *) echo 'error in command line parsing' >&2
+            exit 1
+    esac
+done
+
+shift "$(( OPTIND - 1 ))"
+
+# Set Volume of all sinks to $v
+if [ -n "$v" ]; then
+    for SINK in `pacmd list-sinks | grep 'index:' | cut -b12-`
+    do
+        echo "pactl set-sink-volume $SINK $v"
+        pactl set-sink-volume $SINK $v
+    done
+fi
+
+# Forward media control commands to applications
+function sd_media_ctrl_playpause {
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+}
+function sd_media_ctrl_previous {
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+}
+function sd_media_ctrl_next {
+    dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+}
+if [ -n "${c}" ]; then
+    if [ "${c}" = "playpause" ]; then
+        sd_media_ctrl_playpause
+    elif [ "${c}" = "previous" ]; then
+        sd_media_ctrl_previous
+    elif [ "${c}" = "next" ]; then
+        sd_media_ctrl_next
+    fi
+fi
+
