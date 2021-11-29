@@ -42,17 +42,17 @@ Usually this works pretty well automatically, you might have to restart your sys
 
 ## Controls
 You can check and, of course alter, the src/dwm/config.h file for all available controls, but following a brief summary of the most important shortcuts:
-
-SUPER+b -> Toggle menubar
-SUPER+1-4 -> Toggle between tags (workspaces)
-SUPER+SHIFT+1-4 -> Assign window to tag (workspace)
-SUPER+Up/Down -> Toggle active window
-SUPER+p -> Open dmenu (Search for programms)
+```
+SUPER+b            -> Toggle menubar
+SUPER+1-4          -> Toggle between tags (workspaces)
+SUPER+SHIFT+1-4    -> Assign window to tag (workspace)
+SUPER+Up/Down      -> Toggle active window
+SUPER+p            -> Open dmenu (Search for programms)
 SUPER+SHIFT+Return -> Open a terminal
-SUPER+w -> Connect to WIFI
-SUPER+F2 -> Lower Volume by 1%
-SUPER+F3 -> Raise Volume by 1%
-
+SUPER+w            -> Connect to WIFI
+SUPER+F2           -> Lower Volume by 1%
+SUPER+F3           -> Raise Volume by 1%
+```
 ## Optional
 ### Development (Ecplise)
 ```
