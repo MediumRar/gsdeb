@@ -2,8 +2,9 @@
 
 # THIS GUIDE IS NEITHER COMPLETE NOR PERFECT FOR SURE !!!
 
-This repo is mainly for myself, but I thought to myself, why not share. So here you go. This is my preferred linux daily driver. Everything from programming to gaming is not only possible but the best possible linux experience IMO.
-Enjoy stable Debian with a very lightweight "DE".
+This repo is mainly for myself, but I thought to myself, why not share. So here you go.
+This is my preferred linux daily driver. Everything from programming to gaming is not only possible,
+but the best possible linux experience IMO. Enjoy stable Debian with a very lightweight "DE".
 
 - Install Debian however you desire
 - DO NOT install any DE obviously
@@ -28,7 +29,8 @@ cd ~/gsdeb
 ```
 
 ### Autostart X
-If you want to automatically start SucklessDebian whenever you login with your user, add the following to your .bashrc file.
+If you want to automatically start SucklessDebian whenever you login with your user,
+add the following to your .bashrc file.
 
 DO NOT DO THIS WITH YOUR ROOT USER!!! YOU ARE GONNA REGRET IT SOONER OR LATER!!!
 ```
@@ -41,7 +43,8 @@ https://askubuntu.com/questions/71863/how-to-change-pulseaudio-sink-with-pacmd-s
 Usually this works pretty well automatically, you might have to restart your system though.
 
 ## Controls
-You can check and, of course alter, the src/dwm/config.h file for all available controls, but following a brief summary of the most important shortcuts:
+You can check and, of course alter, the src/dwm/config.h file for all available controls,
+but following a brief summary of the most important shortcuts:
 ```
 SUPER+b            -> Toggle menubar
 SUPER+1-4          -> Toggle between tags (workspaces)
@@ -71,7 +74,10 @@ apt-get install firmware-misc-nonfree steam
 ```
 
 #### NVIDIA Graphics
-If you have an older graphics card you might want to install https://packages.debian.org/bullseye/nvidia-detect first to check for the proper graphics driver, otherwise just add "contrib non-free" to all of your entries in the source.list and:
+If you have an older graphics card you might want to install
+https://packages.debian.org/bullseye/nvidia-detect
+first to check for the proper graphics driver, otherwise just add "contrib non-free"
+to all of your entries in the source.list and:
 ```
 add-apt-repository non-free
 dpkg --add-architecture i386
