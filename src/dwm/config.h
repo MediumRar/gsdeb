@@ -62,14 +62,14 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 
 static const char *termcmd[]  = { "st", NULL };
 
-static const char *wifi[]     = { "sd_wifi_ctrl", NULL };
+static const char *wifi[]     = { "gs_wifi_ctrl", NULL };
 
-static const char *media_mute[]      = { "sd_media_ctrl", "-v", "0%",  NULL };
-static const char *media_lower[]     = { "sd_media_ctrl", "-v", "-1%", NULL };
-static const char *media_higher[]    = { "sd_media_ctrl", "-v", "+1%", NULL };
-static const char *media_playpause[] = { "sd_media_ctrl", "-c", "playpause", NULL };
-static const char *media_previous[]  = { "sd_media_ctrl", "-c", "previous",  NULL };
-static const char *media_next[]      = { "sd_media_ctrl", "-c", "next",      NULL };
+static const char *media_mute[]      = { "gs_media_ctrl", "-v", "0%",  NULL };
+static const char *media_lower[]     = { "gs_media_ctrl", "-v", "-1%", NULL };
+static const char *media_higher[]    = { "gs_media_ctrl", "-v", "+1%", NULL };
+static const char *media_playpause[] = { "gs_media_ctrl", "-c", "playpause", NULL };
+static const char *media_previous[]  = { "gs_media_ctrl", "-c", "previous",  NULL };
+static const char *media_next[]      = { "gs_media_ctrl", "-c", "next",      NULL };
 
 static Key keys[] = {
     /* modifier         key         function    argument */
