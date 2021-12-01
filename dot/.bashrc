@@ -71,7 +71,13 @@ if ! shopt -oq posix; then
 fi
 
 # aliases
-alias l='ls -lha'
+if [ -x /usr/bin/dircolors ]; then
+# enable color support of ls and also add handy aliases
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias l='ls -lha --color=auto'
+else
+    alias l='ls -lha'
+fi
 alias ..='cd ..'
 
 # functions

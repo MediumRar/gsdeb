@@ -27,22 +27,22 @@ if [ -n "$v" ]; then
 fi
 
 # Forward media control commands to applications
-function sd_media_ctrl_playpause {
+function gs_media_ctrl_playpause {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 }
-function sd_media_ctrl_previous {
+function gs_media_ctrl_previous {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 }
-function sd_media_ctrl_next {
+function gs_media_ctrl_next {
     dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 }
 if [ -n "${c}" ]; then
     if [ "${c}" = "playpause" ]; then
-        sd_media_ctrl_playpause
+        gs_media_ctrl_playpause
     elif [ "${c}" = "previous" ]; then
-        sd_media_ctrl_previous
+        gs_media_ctrl_previous
     elif [ "${c}" = "next" ]; then
-        sd_media_ctrl_next
+        gs_media_ctrl_next
     fi
 fi
 

@@ -42,8 +42,8 @@ echo "" > ./install.log
 
     echo
     echo "Copying scripts ..."
-    sudo cp --verbose bin/sd_media_ctrl ${bin_path}/.
-    sudo cp --verbose bin/sd_wifi_ctrl  ${bin_path}/.
+    sudo cp --verbose bin/gs_media_ctrl ${bin_path}/.
+    sudo cp --verbose bin/gs_wifi_ctrl  ${bin_path}/.
 
     echo
     echo "Copying configs ..."

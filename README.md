@@ -15,7 +15,7 @@ but the best possible linux experience IMO. Enjoy stable Debian with a very ligh
 ### Install suckless software
 Do the following as the user you plan to use for the "DE"
 ```
-git clone http://git.geilerschas.at/gsdeb.git ~/.
+git clone https://git.geilerschas.at/gsdeb.git ~/.
 cd ~/gsdeb
 ```
 You can now make some configurations in the install script itself or via the suckless configuration files.

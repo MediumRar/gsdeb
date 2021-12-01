@@ -1,29 +1,29 @@
 #!/usr/bin/bash
 
-function sd_wifi_ctrl_known {
+function gs_wifi_ctrl_known {
     nmcli connection show | grep "wifi" | dmenu -l 10 -p "Connect:" | awk '{print $1}' | xargs nmcli connection up
     if [ $? -ne 0 ]; then
-        echo "" | dmenu -p "sd_wifi_ctrl: Failed to establish known connection!"
+        echo "" | dmenu -p "gs_wifi_ctrl: Failed to establish known connection!"
     fi
 }
-function sd_wifi_ctrl_new {
+function gs_wifi_ctrl_new {
     bssid=$(nmcli device wifi list | sed -n '1!p' | cut -b 9- | dmenu -l 10 -p "Connect:" | awk '{print $1}')
     pass=$(echo"" | dmenu -p "Password:")
     nmcli device wifi connect $bssid password $pass
     if [ $? -ne 0 ]; then
-        echo "" | dmenu -p "sd_wifi_ctrl: Failed to establish new connection!"
+        echo "" | dmenu -p "gs_wifi_ctrl: Failed to establish new connection!"
     fi
 }
-function sd_wifi_ctrl_disconnect {
+function gs_wifi_ctrl_disconnect {
     nmcli d | grep "wifi.*connected" | dmenu -l 10 -p "Disconnect:" | awk '{print $4}' | xargs nmcli connection down
     if [ $? -ne 0 ]; then
-        echo "" | dmenu -p "sd_wifi_ctrl: Failed to disconnect connection!"
+        echo "" | dmenu -p "gs_wifi_ctrl: Failed to disconnect connection!"
     fi
 }
-function sd_wifi_ctrl_forget {
+function gs_wifi_ctrl_forget {
     nmcli connection show | sed -n '1!p' | dmenu -l 10 -p "Forget:" | awk '{print $1}' | xargs nmcli connection delete
     if [ $? -ne 0 ]; then
-        echo "" | dmenu -p "sd_wifi_ctrl: Failed to forget connection!"
+        echo "" | dmenu -p "gs_wifi_ctrl: Failed to forget connection!"
     fi
 }
 
@@ -34,10 +34,10 @@ action=$(echo "\
 4.) Forget Connection" | dmenu -l 10 -p "Chose action:" | cut -b -1)
 
 case $action in
-    1) sd_wifi_ctrl_known;;
-    2) sd_wifi_ctrl_new;;
-    3) sd_wifi_ctrl_disconnect;;
-    4) sd_wifi_ctrl_forget;;
+    1) gs_wifi_ctrl_known;;
+    2) gs_wifi_ctrl_new;;
+    3) gs_wifi_ctrl_disconnect;;
+    4) gs_wifi_ctrl_forget;;
     *) echo "Something went wrong ..."
        exit 1
 esac
