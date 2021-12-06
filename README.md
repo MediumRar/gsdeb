@@ -11,18 +11,26 @@ but the best possible linux experience IMO. Enjoy stable Debian with a very ligh
 - DO install the standard system utilities though
 - Basically you wanna install a barebones debian OS
 
-## SucklessDebian
-### Install suckless software
-Do the following as the user you plan to use for the "DE"
+## GSDeb
+### Install gsdeb
+You will have to install git first:
+```
+sudo apt update && apt upgrade
+sudp apt install git
+```
+
+Then clone the GIT-Repository:
 ```
 git clone https://git.geilerschas.at/gsdeb.git ~/.
 cd ~/gsdeb
 ```
-You can now make some configurations in the install script itself or via the suckless configuration files.
+
+Now you can make some configurations in the install script itself or via the various configuration files (dwm, dmenu, st etc.).
 ```
 vi install.sh
 ```
-As soon as you are done, install.
+
+As soon as you are done, install as root user.
 ```
 cd ~/gsdeb
 ./install.sh

@@ -2,7 +2,7 @@
 sd_set_volume 50%
 
 # Set Wallpaper
-feh --bg-scale /home/fips/.local/share/wallpaper &
+feh --no-fehbg --bg-scale /home/fips/.local/share/wallpaper &
 
 # Start Compositor
 compton &

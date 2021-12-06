@@ -1,0 +1,98 @@
+#!/bin/bash
+
+if [[ "$EUID" != 0 ]]; then
+    echo "This script has to be executed as root user!"
+    exit 1
+fi
+
+echo "" > ./install.log
+(
+    # Config start
+    ###########################################################
+    user_name=$(ls /home | grep -vE "(\.|\..|lost\+found)")
+    home_path="/home/${user_name}"
+    bin_path="/usr/local/bin"
+    ###########################################################
+    # Config end
+
+    # Sanity checks
+    if [ -z ${user_name} ]; then
+        echo "user_name is not set!";
+        exit 1
+    fi
+    if [ ! -d ${home_path} ]; then
+        echo "home_path not found!"
+        exit 1
+    fi
+    if [ ! -d ${bin_path} ]; then
+        echo "bin_path not found!"
+        exit 1
+    fi
+
+
+    # Start installing
+    echo
+    echo "Installing dependencies ..."
+    apt-get update && apt-get upgrade
+
+    # Dependencies for dwm, st, dmenu
+    apt-get install -y xorg build-essential libx11-dev libxft-dev libxinerama-dev
+
+    # Audio
+    apt-get install -y alsa-utils pulseaudio
+    adduser ${user_name} audio
+
+    # Compositor
+    apt-get install -y compton
+
+    # Image display (wallpaper)
+    apt-get install -y feh
+
+    # dbus (media controls)
+    apt-get install -y dbus-x11
+
+    # Wifi
+    # Connect to Wifi
+    apt-get install -y network-manager
+    # Propriatery Wifi drivers
+    # Uncomment if you need proprietary wifi drivers but don't want to enable non-free repos
+    # Visit: https://packages.debian.org/sid/all/firmware-iwlwifi/download for more info
+    #pkg="firmware-iwlwifi_20210818-1_all.deb"
+    #wget -O pkgs/${pkg} ftp.at.debian.org/debian/pool/non-free/f/firmware-nonfree/${pkg}
+    #dpkg -i pkgs/${pkg}
+
+
+    # Recommended, but by no means necessary
+    apt-get install -y vim locate htop firefox-esr
+    updatedb
+
+
+    echo
+    echo "Compiling suckless software ..."
+    make clean install --directory src/dmenu
+    make clean install --directory src/dwm
+    make clean install --directory src/st
+
+    echo
+    echo "Copying scripts ..."
+    cp --verbose bin/gs_media_ctrl ${bin_path}/.
+    cp --verbose bin/gs_wifi_ctrl  ${bin_path}/.
+
+    # Copy an executable copy of the xinitrc for display managers
+    cp --verbose dot/.xinitrc ${bin_path}/gsdeb
+    chmod --verbose 755 ${bin_path}/gsdeb
+
+    echo
+    echo "Copying configs ..."
+    cp --verbose cfg/compton.conf ${home_path}/.config/.
+
+    echo
+    echo "Copying dot-files ..."
+    cp --verbose dot/.bashrc  ${home_path}/.
+    cp --verbose dot/.vimrc   ${home_path}/.
+    cp --verbose dot/.xinitrc ${home_path}/.
+
+
+    echo
+    echo "Finished!"
+) 2>&1 | tee -a install.log
