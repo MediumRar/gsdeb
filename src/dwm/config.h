@@ -86,7 +86,7 @@ static Key keys[] = {
     { MODKEY,           XK_f,       setlayout,  { .v = &layouts[1]     } },
     { MODKEY,           XK_m,       setlayout,  { .v = &layouts[2]     } },
     // Kill stuff
-    { MODKEY|ShiftMask, XK_c,       killclient, { 0                    } },
+    { MODKEY,           XK_q,       killclient, { 0                    } },
     { MODKEY|ShiftMask, XK_q,       quit,       { 0                    } },
     // Media Control
     //                  XF86AudioMute

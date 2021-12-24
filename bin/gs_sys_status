@@ -1,0 +1,44 @@
+#!/usr/bin/bash
+
+# Default values:
+persistance=false
+sa=()
+
+# It's the : after d that signifies that it takes an option argument.
+while getopts pdb opt; do
+    case $opt in
+        p) persistance=true ;;
+        d) sa+=( gs_sys_status_date ) ;;
+        b) sa+=( gs_sys_status_battery ) ;;
+        *) echo 'error in command line parsing' >&2
+            exit 1
+    esac
+done
+
+ss=""
+function gs_sys_status_date {
+    ss+="$(date +"%F %R")"
+}
+function gs_sys_status_battery {
+    ss+="$(cat /sys/class/power_supply/BAT0/capacity)%"
+}
+function gs_sys_status_main {
+    ss=""
+    if [ -n "${sa}" ]; then
+        for i in "${sa[@]}"; do
+            if [ -n "${ss}" ]; then
+                ss+=" | "
+            fi
+            ${i}
+        done
+    fi
+    echo "xsetroot -name \"${ss}\""
+    xsetroot -name "${ss}"
+}
+
+gs_sys_status_main
+while ${persistance}; do
+    sleep 10s
+    gs_sys_status_main
+done
+

@@ -1,11 +1,14 @@
 # Set default volume of all audio devices
-sd_set_volume 50%
+gs_media_ctrl 50%
 
 # Set Wallpaper
 feh --no-fehbg --bg-scale /home/fips/.local/share/wallpaper &
 
 # Start Compositor
 compton &
+
+# Show status (date | batterypercentage) in taskbar
+gs_sys_status -d -b -p &
 
 # Start DWM
 exec dbus-launch --exit-with-session dwm
