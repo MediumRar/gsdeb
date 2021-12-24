@@ -1,5 +1,5 @@
 # Set default volume of all audio devices
-gs_media_ctrl 50%
+gs_media_ctrl -v 50%
 
 # Set Wallpaper
 feh --no-fehbg --bg-scale /home/fips/.local/share/wallpaper &
