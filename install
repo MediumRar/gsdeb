@@ -39,7 +39,7 @@ echo "" > ./install.log
     apt-get install -y xorg build-essential libx11-dev libxft-dev libxinerama-dev
 
     # Audio
-    apt-get install -y alsa-utils pulseaudio
+    apt-get install -y alsa-utils pulseaudio pavucontrol
     adduser ${user_name} audio
 
     # Compositor
@@ -75,6 +75,7 @@ echo "" > ./install.log
 
     echo
     echo "Copying scripts ..."
+    cp --verbose bin/gs_audio_ctrl ${bin_path}/.
     cp --verbose bin/gs_media_ctrl ${bin_path}/.
     cp --verbose bin/gs_sys_status ${bin_path}/.
     cp --verbose bin/gs_wifi_ctrl  ${bin_path}/.

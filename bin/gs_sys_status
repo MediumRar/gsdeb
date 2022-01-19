@@ -5,40 +5,54 @@ persistance=false
 sa=()
 
 # It's the : after d that signifies that it takes an option argument.
-while getopts pdb opt; do
+while getopts bdpw opt; do
     case $opt in
-        p) persistance=true ;;
-        d) sa+=( gs_sys_status_date ) ;;
         b) sa+=( gs_sys_status_battery ) ;;
+        d) sa+=( gs_sys_status_date ) ;;
+        p) persistance=true ;;
+        w) sa+=( gs_sys_status_wifi ) ;;
         *) echo 'error in command line parsing' >&2
             exit 1
     esac
 done
 
 ss=""
+function gs_sys_status_battery {
+    ss+="$(cat /sys/class/power_supply/BAT0/capacity)%"
+    ps="$(cat /sys/class/power_supply/BAT0/status)"
+    if [ "$ps" = "Full" ]; then
+        ss+="~"
+    elif [ "$ps" = "Charging" ]; then
+        ss+="+"
+    else
+        ss+="-"
+    fi
+}
 function gs_sys_status_date {
     ss+="$(date +"%F %R")"
 }
-function gs_sys_status_battery {
-    ss+="$(cat /sys/class/power_supply/BAT0/capacity)%"
+function gs_sys_status_wifi {
+    ss+="$(nmcli -f NAME con show --active | awk 'END{print $1}')"
 }
+
 function gs_sys_status_main {
-    ss=""
+    ss=" "
     if [ -n "${sa}" ]; then
         for i in "${sa[@]}"; do
-            if [ -n "${ss}" ]; then
+            if [ ${#ss} -gt 1 ]; then
                 ss+=" | "
             fi
             ${i}
         done
     fi
+    ss+=" "
     echo "xsetroot -name \"${ss}\""
     xsetroot -name "${ss}"
 }
 
 gs_sys_status_main
 while ${persistance}; do
-    sleep 10s
+    sleep 2s
     gs_sys_status_main
 done
 

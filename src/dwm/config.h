@@ -59,24 +59,24 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-
 static const char *termcmd[]  = { "st", NULL };
 
-static const char *wifi[]     = { "gs_wifi_ctrl", NULL };
-
-static const char *media_mute[]      = { "gs_media_ctrl", "-v", "0%",  NULL };
-static const char *media_lower[]     = { "gs_media_ctrl", "-v", "-1%", NULL };
-static const char *media_higher[]    = { "gs_media_ctrl", "-v", "+1%", NULL };
+static const char *audio_ctrl[]      = { "gs_audio_ctrl", "-a", NULL };
+static const char *audio_mute[]      = { "gs_audio_ctrl", "-m", NULL };
+static const char *audio_lower[]     = { "gs_audio_ctrl", "-v", "-1%", NULL };
+static const char *audio_higher[]    = { "gs_audio_ctrl", "-v", "+1%", NULL };
 static const char *media_playpause[] = { "gs_media_ctrl", "-c", "playpause", NULL };
 static const char *media_previous[]  = { "gs_media_ctrl", "-c", "previous",  NULL };
 static const char *media_next[]      = { "gs_media_ctrl", "-c", "next",      NULL };
+static const char *wifi_ctrl[]       = { "gs_wifi_ctrl", NULL };
 
 static Key keys[] = {
     /* modifier         key         function    argument */
     // Spawn programs
     { MODKEY,           XK_p,       spawn,      { .v = dmenucmd        } },
     { MODKEY|ShiftMask, XK_Return,  spawn,      { .v = termcmd         } },
-    { MODKEY,           XK_w,       spawn,      { .v = wifi            } },
+    { MODKEY,           XK_a,       spawn,      { .v = audio_ctrl      } },
+    { MODKEY,           XK_w,       spawn,      { .v = wifi_ctrl       } },
     // Navigation
     { MODKEY,           XK_Return,  zoom,       { 0                    } },
     { MODKEY,           XK_b,       togglebar,  { 0                    } },
@@ -90,14 +90,14 @@ static Key keys[] = {
     { MODKEY|ShiftMask, XK_q,       quit,       { 0                    } },
     // Media Control
     //                  XF86AudioMute
-    { MODKEY,           XK_F1,      spawn,      { .v = media_mute      } },
-    { NULL,             0x1008ff12, spawn,      { .v = media_mute      } },
+    { MODKEY,           XK_F1,      spawn,      { .v = audio_mute      } },
+    { NULL,             0x1008ff12, spawn,      { .v = audio_mute      } },
     //                  XF86AudioLowerVolume
-    { MODKEY,           XK_F2,      spawn,      { .v = media_lower     } },
-    { NULL,             0x1008ff11, spawn,      { .v = media_lower     } },
+    { MODKEY,           XK_F2,      spawn,      { .v = audio_lower     } },
+    { NULL,             0x1008ff11, spawn,      { .v = audio_lower     } },
     //                  XF86AudioRaiseVolume
-    { MODKEY,           XK_F3,      spawn,      { .v = media_higher    } },
-    { NULL,             0x1008ff13, spawn,      { .v = media_higher    } },
+    { MODKEY,           XK_F3,      spawn,      { .v = audio_higher    } },
+    { NULL,             0x1008ff13, spawn,      { .v = audio_higher    } },
     //                  XF86AudioPlay
     { MODKEY,           XK_F4,      spawn,      { .v = media_playpause } },
     { NULL,             0x1008ff14, spawn,      { .v = media_playpause } },

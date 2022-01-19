@@ -1,0 +1,64 @@
+#!/usr/bin/bash
+
+# Default values:
+v=""
+
+function gs_audio_ctrl_output {
+    pacmd list-sinks| awk '/index:/ {print $0} /name:/ {print $0}' | sed -r 's/(.*index: |.*name:)//' | sed 'N;s/\n//' | dmenu -l 10 -p "Chose audio output:" | awk '{print $1}' | xargs pacmd set-default-sink
+    if [ $? -ne 0 ]; then
+        echo "" | dmenu -p "gs_audio_ctrl: Failed to set new default output!"
+    fi
+}
+function gs_audio_ctrl_input {
+    pacmd list-sources| awk '/index:/ {print $0} /name:/ {print $0}' | sed -r 's/(.*index: |.*name:)//' | sed 'N;s/\n//' | dmenu -l 10 -p "Chose audio input:" | awk '{print $1}' | xargs pacmd set-default-source
+    if [ $? -ne 0 ]; then
+        echo "" | dmenu -p "gs_audio_ctrl: Failed to set new default source!"
+    fi
+}
+
+function gs_audio_ctrl_dmenu_a {
+    action=$(echo "\
+1.) Change audio output
+2.) Change audio input
+3.) Pavucontrol" | dmenu -l 10 -p "Chose action:" | cut -b -1)
+
+    case $action in
+        1) gs_audio_ctrl_output;;
+        2) gs_audio_ctrl_input;;
+        3) pavucontrol &;;
+        *) echo "Something went wrong ..."
+           exit 1
+    esac
+
+}
+function gs_audio_ctrl_menu_m {
+    for SINK in `pacmd list-sinks | grep 'index:' | cut -b12-`
+    do
+        echo "pactl set-sink-mute $SINK toggle"
+        pactl set-sink-mute $SINK toggle
+    done
+}
+function gs_audio_ctrl_menu_v {
+    if [ -n "$v" ]; then
+        for SINK in `pacmd list-sinks | grep 'index:' | cut -b12-`
+        do
+            echo "pactl set-sink-mute $SINK false"
+            pactl set-sink-mute $SINK false
+            echo "pactl set-sink-volume $SINK $v"
+            pactl set-sink-volume $SINK $v
+        done
+    fi
+}
+
+# It's the : after d that signifies that it takes an option argument.
+while getopts amv: opt; do
+    case $opt in
+        a) gs_audio_ctrl_dmenu_a ;;
+        m) gs_audio_ctrl_menu_m ;;
+        v) v="${OPTARG}" ; gs_audio_ctrl_menu_v ;;
+        *) echo 'error in command line parsing' >&2
+            exit 1
+    esac
+done
+shift "$(( OPTIND - 1 ))"
+
