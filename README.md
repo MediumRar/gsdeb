@@ -25,7 +25,7 @@ git clone https://git.geilerschas.at/gsdeb.git ~/.
 cd ~/gsdeb
 ```
 
-Now you can make some configurations in the install script itself or via the various configuration files (dwm, dmenu, st etc.).
+Now you can make some configurations in the install script itself or via the various configuration files (dwm, dmenu, st etc.). You should check the install script in particular, to make sure, everything is installed for the correct user!
 ```
 vi install.sh
 ```
@@ -36,8 +36,14 @@ cd ~/gsdeb
 ./install.sh
 ```
 
-### Autostart X
-If you want to automatically start SucklessDebian whenever you login with your user,
+### Start gsdeb
+As soon as you are logged in as the user you chose in the install script, you can start gsdeb by starting the xserver.
+```
+startx
+```
+
+### Autostart gsdeb
+If you want to automatically start gsdeb whenever you login with your user,
 add the following to your .bashrc file.
 
 DO NOT DO THIS WITH YOUR ROOT USER!!! YOU ARE GONNA REGRET IT SOONER OR LATER!!!
@@ -45,24 +51,28 @@ DO NOT DO THIS WITH YOUR ROOT USER!!! YOU ARE GONNA REGRET IT SOONER OR LATER!!!
 echo "if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then\n    exec start\nfi" >> ~/.bashrc
 ```
 
-### Audio
-To properly set your default soundcard see:
-https://askubuntu.com/questions/71863/how-to-change-pulseaudio-sink-with-pacmd-set-default-sink-during-playback
-Usually this works pretty well automatically, you might have to restart your system though.
-
 ## Controls
 You can check and, of course alter, the src/dwm/config.h file for all available controls,
 but following a brief summary of the most important shortcuts:
 ```
-SUPER+b            -> Toggle menubar
-SUPER+1-4          -> Toggle between tags (workspaces)
-SUPER+SHIFT+1-4    -> Assign window to tag (workspace)
-SUPER+Up/Down      -> Toggle active window
-SUPER+p            -> Open dmenu (Search for programms)
-SUPER+SHIFT+Return -> Open a terminal
-SUPER+w            -> Connect to WIFI
-SUPER+F2           -> Lower Volume by 1%
-SUPER+F3           -> Raise Volume by 1%
+SUPER+1-9           -> Toggle between tags (workspaces)
+SUPER+SHIFT+1-9     -> Assign window to tag (workspace)
+SUPER+Up/Down       -> Toggle active window
+SUPER+Return        -> Toggle main window
+
+SUPER+b             -> Toggle menubar
+SUPER+p             -> Open dmenu (Search for programms)
+
+SUPER+SHIFT+Return  -> Open a terminal
+SUPER+a             -> Control Audio
+SUPER+w             -> Control WIFI
+
+SUPER+F1            -> Toggle Mute
+SUPER+F2            -> Lower Volume by 1%
+SUPER+F3            -> Raise Volume by 1%
+SUPER+F4            -> Play/Pause (Currently, only Spotify is supported)
+SUPER+F5            -> Previous track (Currently, only Spotify is supported)
+SUPER+F6            -> Next track (Currently, only Spotify is supported)
 ```
 ## Optional
 ### Development (Ecplise)
