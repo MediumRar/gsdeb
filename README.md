@@ -54,14 +54,22 @@ echo "if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then\n    exec start\nf
 ## Controls
 You can check and, of course alter, the src/dwm/config.h file for all available controls,
 but following a brief summary of the most important shortcuts:
+### Keyboard
 ```
 SUPER+1-9           -> Toggle between tags (workspaces)
 SUPER+SHIFT+1-9     -> Assign window to tag (workspace)
 SUPER+Up/Down       -> Toggle active window
+SUPER+Left/Right    -> Resize window stacks
 SUPER+Return        -> Toggle main window
 
 SUPER+b             -> Toggle menubar
 SUPER+p             -> Open dmenu (Search for programms)
+
+SUPER+q             -> Kill application
+SUPER+SHIFT+q       -> Kill session
+
+SUPER+T             -> Tiled Mode (default)
+SUPER+M             -> Monocle Mode
 
 SUPER+SHIFT+Return  -> Open a terminal
 SUPER+a             -> Control Audio
@@ -73,6 +81,12 @@ SUPER+F3            -> Raise Volume by 1%
 SUPER+F4            -> Play/Pause (Currently, only Spotify is supported)
 SUPER+F5            -> Previous track (Currently, only Spotify is supported)
 SUPER+F6            -> Next track (Currently, only Spotify is supported)
+```
+### Mouse
+```
+SUPER+Left          -> Move window
+SUPER+Right         -> Resize window
+SUPER+Middle        -> Snap window back
 ```
 ## Optional
 ### Development (Ecplise)

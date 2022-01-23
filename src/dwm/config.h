@@ -24,13 +24,13 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-static const Rule rules[0];
-        /* xprop(1):
-         *      WM_CLASS(STRING) = instance, class
-         *      WM_NAME(STRING) = title
-         */
-        /* class      instance    title       tags mask     isfloating   monitor */
-
+static const Rule rules[] = {
+    /* xprop(1):
+     *      WM_CLASS(STRING) = instance, class
+     *      WM_NAME(STRING) = title
+     * class      instance    title       tags mask     isfloating   monitor */
+    { NULL,       NULL,       NULL,       0,            False,       -1 },
+};
 
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
@@ -41,7 +41,6 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
         /* symbol     arrange function */
         { "[T]",      tile },    /* first entry is default */
-        { "[F]",      NULL },    /* no layout function means floating behavior */
         { "[M]",      monocle },
 };
 
@@ -80,10 +79,11 @@ static Key keys[] = {
     // Navigation
     { MODKEY,           XK_Return,  zoom,       { 0                    } },
     { MODKEY,           XK_b,       togglebar,  { 0                    } },
-    { MODKEY,           XK_Down,    focusstack, { .i = +1              } },
-    { MODKEY,           XK_Up,      focusstack, { .i = -1              } },
+    { MODKEY,           XK_Up,      focusstack, { .i = +1              } },
+    { MODKEY,           XK_Down,    focusstack, { .i = -1              } },
+    { MODKEY,           XK_Left,    setmfact,   { .f = -0.05           } },
+    { MODKEY,           XK_Right,   setmfact,   { .f = +0.05           } },
     { MODKEY,           XK_t,       setlayout,  { .v = &layouts[0]     } },
-    { MODKEY,           XK_f,       setlayout,  { .v = &layouts[1]     } },
     { MODKEY,           XK_m,       setlayout,  { .v = &layouts[2]     } },
     // Kill stuff
     { MODKEY,           XK_q,       killclient, { 0                    } },
@@ -124,7 +124,6 @@ static Key keys[] = {
 static Button buttons[] = {
         /* click                event mask      button          function        argument */
         { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-        { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
         { ClkWinTitle,          0,              Button2,        zoom,           {0} },
         { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
         { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
