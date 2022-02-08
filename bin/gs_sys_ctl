@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+action=$(echo "\
+1.) Shutdown
+2.) Reboot
+3.) Logout" | dmenu -l 10 -p "Chose action:" | cut -b -1)
+
+case $action in
+    1) systemctl poweroff;;
+    2) systemctl reboot;;
+    3) pkill dwm;;
+    *) echo "Something went wrong ..."
+       exit 1
+esac
+

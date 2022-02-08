@@ -77,6 +77,7 @@ echo "" > ./install.log
     echo "Copying scripts ..."
     cp --verbose bin/gs_audio_ctrl ${bin_path}/.
     cp --verbose bin/gs_media_ctrl ${bin_path}/.
+    cp --verbose bin/gs_sys_ctl    ${bin_path}/.
     cp --verbose bin/gs_sys_status ${bin_path}/.
     cp --verbose bin/gs_wifi_ctrl  ${bin_path}/.
 

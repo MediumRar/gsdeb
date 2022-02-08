@@ -67,6 +67,7 @@ static const char *audio_higher[]    = { "gs_audio_ctrl", "-v", "+1%", NULL };
 static const char *media_playpause[] = { "gs_media_ctrl", "-c", "playpause", NULL };
 static const char *media_previous[]  = { "gs_media_ctrl", "-c", "previous",  NULL };
 static const char *media_next[]      = { "gs_media_ctrl", "-c", "next",      NULL };
+static const char *sys_ctl[]         = { "gs_sys_ctl", NULL };
 static const char *wifi_ctrl[]       = { "gs_wifi_ctrl", NULL };
 
 static Key keys[] = {
@@ -87,7 +88,7 @@ static Key keys[] = {
     { MODKEY,           XK_m,       setlayout,  { .v = &layouts[2]     } },
     // Kill stuff
     { MODKEY,           XK_q,       killclient, { 0                    } },
-    { MODKEY|ShiftMask, XK_q,       quit,       { 0                    } },
+    { MODKEY,           XK_Escape,  spawn,      { .v = sys_ctl         } },
     // Media Control
     //                  XF86AudioMute
     { MODKEY,           XK_F1,      spawn,      { .v = audio_mute      } },
@@ -98,6 +99,15 @@ static Key keys[] = {
     //                  XF86AudioRaiseVolume
     { MODKEY,           XK_F3,      spawn,      { .v = audio_higher    } },
     { NULL,             0x1008ff13, spawn,      { .v = audio_higher    } },
+    ////XF86AudioMute
+    //{ MODKEY|ShiftMask, XK_F1,      spawn,      { .v = audio_mute      } },
+    //{ ShiftMask,        0x1008ff12, spawn,      { .v = audio_mute      } },
+    ////                  XF86AudioLowerVolume
+    //{ MODKEY|ShiftMask, XK_F2,      spawn,      { .v = audio_lower     } },
+    //{ ShiftMask,        0x1008ff11, spawn,      { .v = audio_lower     } },
+    ////                  XF86AudioRaiseVolume
+    //{ MODKEY|ShiftMask, XK_F3,      spawn,      { .v = audio_higher    } },
+    //{ ShiftMask,        0x1008ff13, spawn,      { .v = audio_higher    } },
     //                  XF86AudioPlay
     { MODKEY,           XK_F4,      spawn,      { .v = media_playpause } },
     { NULL,             0x1008ff14, spawn,      { .v = media_playpause } },
