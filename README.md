@@ -66,12 +66,12 @@ SUPER+b             -> Toggle menubar
 SUPER+p             -> Open dmenu (Search for programms)
 
 SUPER+q             -> Kill application
-SUPER+SHIFT+q       -> Kill session
 
 SUPER+T             -> Tiled Mode (default)
 SUPER+M             -> Monocle Mode
 
 SUPER+SHIFT+Return  -> Open a terminal
+SUPER+Escape        -> Control System (shutdown, reboot, logout)
 SUPER+a             -> Control Audio
 SUPER+w             -> Control WIFI
 
