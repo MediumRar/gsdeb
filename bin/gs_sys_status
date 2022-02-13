@@ -24,8 +24,10 @@ function gs_sys_status_battery {
         ss+="~"
     elif [ "$ps" = "Charging" ]; then
         ss+="+"
-    else
+    elif [ "$ps" = "Discharging" ]; then
         ss+="-"
+    else
+        ss=""
     fi
 }
 function gs_sys_status_date {
