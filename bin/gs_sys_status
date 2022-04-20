@@ -17,34 +17,42 @@ while getopts bdpw opt; do
 done
 
 ss=""
+tss=""
 function gs_sys_status_battery {
-    ss+="$(cat /sys/class/power_supply/BAT0/capacity)%"
+    tss="$(cat /sys/class/power_supply/BAT0/capacity)%"
     ps="$(cat /sys/class/power_supply/BAT0/status)"
     if [ "$ps" = "Full" ]; then
-        ss+="~"
+        tss+="~"
     elif [ "$ps" = "Charging" ]; then
-        ss+="+"
+        tss+="+"
     elif [ "$ps" = "Discharging" ]; then
-        ss+="-"
+        tss+="-"
     else
-        ss=""
+        tss=""
     fi
 }
 function gs_sys_status_date {
-    ss+="$(date +"%F %R")"
+    tss="$(date +"%F %R")"
 }
 function gs_sys_status_wifi {
-    ss+="$(nmcli -f NAME con show --active | awk 'END{print $1}')"
+    tss="$(nmcli -f NAME con show --active | awk 'END{print $1}')"
 }
 
 function gs_sys_status_main {
     ss=" "
     if [ -n "${sa}" ]; then
         for i in "${sa[@]}"; do
-            if [ ${#ss} -gt 1 ]; then
-                ss+=" | "
-            fi
+            # Execute the specific status
             ${i}
+            # Add specific status to status string if it's not empty
+            if [ -n "${tss}" ]; then
+                # Add seperator
+                if [ ${#ss} -gt 1 ]; then
+                    ss+=" | "
+                fi
+                ss+=$tss
+            fi
+            tss=""
         done
     fi
     ss+=" "
