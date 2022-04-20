@@ -70,6 +70,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# exports
+export DMENU_PATH="/home/${USER}/.local/bin"
+
 # aliases
 if [ -x /usr/bin/dircolors ]; then
 # enable color support of ls and also add handy aliases
